@@ -1,41 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebRTC Demo</title>
-  </head>
-  <body>
-    <h2>1. Start your Webcam</h2>
-    <div class="videos">
-      <span>
-        <h3>Local Stream</h3>
-        <video id="webcamVideo" autoplay playsinline></video>
-      </span>
-      <span>
-        <h3>Remote Stream</h3>
-        <video id="remoteVideo" autoplay playsinline></video>
-      </span>
+<!--
+ *  Copyright (c) 2020 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
+-->
+<html>
+<head>
 
+    <meta charset="utf-8">
+    <meta name="description" content="WebRTC code samples">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side WebRTC code samples">
+    <meta itemprop="name" content="WebRTC code samples">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
 
+    <base target="_blank">
+
+    <title>Insertable Streams - Video</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/main.css"/>
+
+</head>
+
+<body>
+
+<div id="container">
+    <h1>WebRTC Video Stream Testbed</h1>
+    
+    <div id="outputVideoContainer"></div>
+
+    <div class="box">
+        <select id="sourceSelector" hidden>
+            <option value="">(stopped)</option>
+            <option selected value="camera">Camera</option>
+            <option value="video">Video</option>
+            <option value="canvas">Canvas</option>
+            <option value="pc">Peer connection (from camera)</option>
+        </select>
+        <input type="checkbox" id="sourceVisible" checked hidden>
+    </div>
+    <div class="box">
+        <select id="transformSelector" hidden>
+            <option value="webgl">WebGL</option>
+            <option value="canvas2d">Canvas2D</option>
+            <option value="noop">Do nothing</option>
+            <option selected value="drop">Drop frames at random</option>
+            <option value="delay">Delay all frames by 100ms</option>
+            <option value="webcodec">Run frames through WebCodec</option>
+        </select>
+    </div>
+    <div class="box">
+        <select id="sinkSelector" hidden>
+            <option value="video">Video</option>
+            <option selected value="pc">Peer connection</option>
+        </select>
     </div>
 
-    <button id="webcamButton">Start webcam</button>
-    <h2>2. Create a new Call</h2>
-    <button id="callButton" disabled>Create Call (offer)</button>
+</div>
 
-    <h2>3. Join a Call</h2>
-    <p>Answer the call from a different browser window or device</p>
-    
-    <input id="callInput" />
-    <button id="answerButton" disabled>Answer</button>
-
-    <h2>4. Hangup</h2>
-
-    <button id="hangupButton" disabled>Hangup</button>
-
-    <script type="module" src="/main.js"></script>
-
-  </body>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="js/camera-source.js" async></script>
+<script src="js/canvas-source.js" async></script>
+<script src="js/canvas-transform.js" async></script>
+<script src="js/peer-connection-pipe.js" async></script>
+<script src="js/peer-connection-sink.js" async></script>
+<script src="js/peer-connection-source.js" async></script>
+<script src="js/pipeline.js" async></script>
+<script src="js/simple-transforms.js" async></script>
+<script src="js/video-mirror-helper.js" async></script>
+<script src="js/video-sink.js" async></script>
+<script src="js/video-source.js" async></script>
+<script src="js/webcodec-transform.js" async></script>
+<script src="js/webgl-transform.js" async></script>
+<script src="js/lossy-channel-transform.js" async></script>
+<script src="js/main.js" async></script>
+</body>
 </html>
