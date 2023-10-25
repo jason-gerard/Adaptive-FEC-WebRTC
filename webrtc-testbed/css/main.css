@@ -287,12 +287,8 @@ fieldset > select {
   vertical-align: top;
 }
 
-.sourceVideo {
+.sourceVideo, .sinkVideo {
   margin: 0 20px 20px 0;
-}
-
-.sinkVideo {
-  margin: 0 0 20px 0;
 }
 
 div.box {

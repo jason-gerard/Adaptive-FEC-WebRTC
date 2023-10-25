@@ -152,9 +152,11 @@ function initUI() {
     // Set transform
     // updatePipelineTransform();
     if (name === "Standard") {
-      pipeline.updateTransform(new LossyTransform());
-    } else {
-      pipeline.updateTransform(new TestLossyTransform());
+      pipeline.updateTransform(new StandardLossyTransform());
+    } else if (name === "Corrected") {
+      pipeline.updateTransform(new CorrectedLossyTransform());
+    } else if (name === "CorrectedML") {
+      pipeline.updateTransform(new CorrectedMLLossyTransform());
     }
 
     // Set sink
@@ -166,7 +168,7 @@ function initUI() {
 
   initPipeline(pipelineStandard, "Standard");
   initPipeline(piplineCorrected, "Corrected");
-  // initPipeline(piplineCorrected, "CorrectedML");
+  initPipeline(piplineCorrected, "CorrectedML");
 }
 
 window.onload = initUI;
