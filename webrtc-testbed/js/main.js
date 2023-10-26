@@ -128,29 +128,30 @@ function createProcessedMediaStreamTrack(sourceTrack, transform, signal) {
  * @type {?Pipeline}
  */
 let pipelineStandard;
-let piplineCorrected;
+let pipelineCorrected;
+let pipelineCorrectedML;
 
 /**
  * Sets up handlers for interacting with the UI elements on the page.
  */
 function initUI() {
+  // Setup source camera
+  const source = new CameraSource();
+  source.setVisibility(true);
+  
   /**
    * Initializes/reinitializes the pipeline. Called on page load and after the
    * user chooses to stop the video source.
    */
-  function initPipeline(pipeline, name) {
+  async function initPipeline(pipeline, name) {
     if (pipeline) pipeline.destroy();
     pipeline = new Pipeline();
     debug = {pipeline};
     
     // Set source
-    // updatePipelineSourceIfSet();
-    const source = new CameraSource();
-    source.setVisibility(name === "Standard");
     pipeline.updateSource(source);
     
     // Set transform
-    // updatePipelineTransform();
     if (name === "Standard") {
       pipeline.updateTransform(new StandardLossyTransform());
     } else if (name === "Corrected") {
@@ -160,15 +161,14 @@ function initUI() {
     }
 
     // Set sink
-    // updatePipelineSink();
-    pipeline.updateSink(new PeerConnectionSink());
+    pipeline.updateSink(new PeerConnectionSink(name));
 
     console.log(`[initPipeline] Created new Pipeline ${name}`, 'debug.pipeline =', pipeline);
   }
 
   initPipeline(pipelineStandard, "Standard");
-  initPipeline(piplineCorrected, "Corrected");
-  initPipeline(piplineCorrected, "CorrectedML");
+  initPipeline(pipelineCorrected, "Corrected");
+  initPipeline(pipelineCorrectedML, "CorrectedML");
 }
 
 window.onload = initUI;

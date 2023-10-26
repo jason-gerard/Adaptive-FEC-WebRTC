@@ -20,12 +20,12 @@
  * @implements {MediaStreamSink} in pipeline.js
  */
 class PeerConnectionSink { // eslint-disable-line no-unused-vars
-  constructor() {
+  constructor(name) {
     /**
      * @private @const {!VideoSink} manages displaying the video stream in the
      *     page
      */
-    this.videoSink_ = new VideoSink();
+    this.videoSink_ = new VideoSink(name);
     /**
      * @private {?PeerConnectionPipe} handles piping the MediaStream through an
      *     RTCPeerConnection

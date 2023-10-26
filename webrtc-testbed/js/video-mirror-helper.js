@@ -66,9 +66,9 @@ class VideoMirrorHelper { // eslint-disable-line no-unused-vars
       this.video_.classList.add('video', 'sourceVideo');
       this.video_.srcObject = this.stream_;
       const outputVideoContainer =
-          document.getElementById('outputVideoContainer');
-      outputVideoContainer.appendChild(
-          this.video_, outputVideoContainer);
+          document.getElementById('sourceVideoContainer');
+      outputVideoContainer.insertBefore(
+          this.video_, document.getElementById("sourceVideoMetadataContainer"));
       this.video_.play();
     }
   }

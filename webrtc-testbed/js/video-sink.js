@@ -13,13 +13,16 @@
  * @implements {MediaStreamSink} in pipeline.js
  */
 class VideoSink { // eslint-disable-line no-unused-vars
-  constructor() {
+  constructor(name) {
     /**
      * @private {?HTMLVideoElement} output video element
      */
     this.video_ = null;
     /** @private {string} */
     this.debugPath_ = 'debug.pipeline.sink_';
+    
+    
+    this.name = name;
   }
   /**
    * Sets the path to this object from the debug global var.
@@ -35,7 +38,9 @@ class VideoSink { // eslint-disable-line no-unused-vars
       this.video_ =
         /** @type {!HTMLVideoElement} */ (document.createElement('video'));
       this.video_.classList.add('video', 'sinkVideo');
-      document.getElementById('outputVideoContainer').appendChild(this.video_);
+      document
+          .getElementById(`sinkVideoContainer${this.name}`)
+          .insertBefore(this.video_, document.getElementById(`sinkVideoMetadataContainer${this.name}`));
       console.log(
           '[VideoSink] Added video element to page.',
           `${this.debugPath_}.video_ =`, this.video_);

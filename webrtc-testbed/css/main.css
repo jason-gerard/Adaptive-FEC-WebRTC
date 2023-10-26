@@ -1,3 +1,27 @@
+#outputVideoContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#sourceVideoContainer,
+#sinkVideoContainerStandard,
+#sinkVideoContainerCorrected,
+#sinkVideoContainerCorrectedML {
+  display: flex;
+  flex-direction: row;
+}
+
+.sim-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+#resetButton,
+#saveButton {
+  margin: 10px;
+}
+
 /*
  *  Copyright (c) 2020 The WebRTC project authors. All Rights Reserved.
  *
@@ -281,7 +305,7 @@ fieldset > select {
 }
 
 .video {
-  --width: 400px;
+  --width: 280px;
   width: var(--width);
   height: calc(var(--width) * 0.75);
   vertical-align: top;

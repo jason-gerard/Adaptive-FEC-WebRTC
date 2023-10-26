@@ -29,9 +29,46 @@
 <body>
 
 <div id="container">
-    <h1>WebRTC Video Streaming FEC Testbed</h1>
+    <div class="sim-controls">
+        <h1>WebRTC Video Streaming FEC Testbed</h1>
+        <button id="resetButton" onclick="resetSim()">Reset</button>
+        <button id="saveButton" onclick="saveResults()">Save</button>
+    </div>
     
-    <div id="outputVideoContainer"></div>
+    <div id="outputVideoContainer">
+        <div id="sourceVideoContainer">
+            <div id="sourceVideoMetadataContainer">
+                <p>Stream: Source Video</p>
+            </div>
+        </div>
+        <div id="sinkVideoContainerStandard">
+            <div id="sinkVideoMetadataContainerStandard">
+                <p>Stream: Standard (No correction)</p>
+                <p>Number of frame sent: <span id="frameCountStandard">0</span></p>
+                <p>Number of frame displayed, after correction: <span id="frameDisplayedStandard">0</span></p>
+                <p>Number of frame errors, before correction: <span id="errorCountBCStandard">0</span></p>
+                <p>Number of frame drops, after correction: <span id="errorCountACStandard">0</span></p>
+            </div>
+        </div>
+        <div id="sinkVideoContainerCorrected">
+            <div id="sinkVideoMetadataContainerCorrected">
+                <p>Stream: Corrected (Reed-Solomon(22, 18))</p>
+                <p>Number of frame sent: <span id="frameCountCorrected">0</span></p>
+                <p>Number of frame displayed, after correction: <span id="frameDisplayedCorrected">0</span></p>
+                <p>Number of frame errors, before correction: <span id="errorCountBCCorrected">0</span></p>
+                <p>Number of frame drops, after correction: <span id="errorCountACCorrected">0</span></p>
+            </div>
+        </div>
+        <div id="sinkVideoContainerCorrectedML">
+            <div id="sinkVideoMetadataContainerCorrectedML">
+                <p>Stream: CorrectedML (Reed-Solomon(Dynamic, 18))</p>
+                <p>Number of frame sent: <span id="frameCountCorrectedML">0</span></p>
+                <p>Number of frame displayed, after correction: <span id="frameDisplayedCorrectedML">0</span></p>
+                <p>Number of frame errors, before correction: <span id="errorCountBCCorrectedML">0</span></p>
+                <p>Number of frame drops, after correction: <span id="errorCountACCorrectedML">0</span></p>
+            </div>
+        </div>
+    </div>
 
     <div class="box">
         <select id="sourceSelector" hidden>
@@ -63,6 +100,7 @@
 </div>
 
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="js/controls.js" async></script>
 <script src="js/error-model.js" async></script>
 <script src="js/camera-source.js" async></script>
 <script src="js/canvas-source.js" async></script>
