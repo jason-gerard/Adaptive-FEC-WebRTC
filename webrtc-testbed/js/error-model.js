@@ -5,14 +5,35 @@ class ErrorModel {
         // after all packets are computed we transition to the next probability for the packets of the next frame
         this.states = [0, 10, 20, 30, 40, 50];
         // transitionProbabilities[i][j] -> the probability of transitioning from state i to state j
+        // this.transitionProbabilities = [
+        //     [80, 4,  4,  4,  4,  4],
+        //     [60, 30, 10, 0,  0,  0],
+        //     [60, 5,  30, 5,  0,  0],
+        //     [60, 0,  5,  30, 5,  0],
+        //     [60, 0,  0,  5,  30, 5],
+        //     [60, 0,  0,  0,  10, 30],
+        // ];
+
         this.transitionProbabilities = [
-            [80, 4,  4,  4,  4,  4],
-            [60, 30, 10, 0,  0,  0],
-            [60, 5,  30, 5,  0,  0],
-            [60, 0,  5,  30, 5,  0],
-            [60, 0,  0,  5,  30, 5],
-            [60, 0,  0,  0,  10, 30],
+            [80, 20, 0,  0,  0,  0],
+            [20, 60, 20, 0,  0,  0],
+            [0, 20,  60, 20,  0,  0],
+            [0, 0,  20,  60, 20,  0],
+            [0, 0,  0,  20,  60, 20],
+            [0, 0,  0,  0,  80, 20],
         ];
+    }
+
+    getNumErrorsByState(numFramesPerPacket, state) {
+        let numErrors = 0;
+        for (let i = 0; i < numFramesPerPacket; i++) {
+            const sample = Math.floor(Math.random() * 100);
+            if (sample < this.states[state]) {
+                numErrors++;
+            }
+        }
+
+        return numErrors;
     }
     
     getNumErrors(numFramesPerPacket) {
@@ -41,9 +62,7 @@ class ErrorModel {
     }
 }
 
-// Console test
-// const model = new ErrorModel();
-// for (let i = 0; i < 100; i++) {
-//     console.log("state", model.state);
-//     console.log("num errors", model.getNumErrors());
+// Uncomment to generate dataset
+// module.exports = {
+//     ErrorModel,
 // }

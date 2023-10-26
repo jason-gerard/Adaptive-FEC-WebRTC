@@ -45,7 +45,7 @@ class CorrectedLossyTransform { // eslint-disable-line no-unused-vars
         const numCorrectableErrors = (n - k) / 2;
 
         // Compute the number of packet errors for this frame
-        const numPacketErrors = this.errorModel.getNumErrors(n);
+        const numPacketErrors = this.errorModel.getNumErrors(k);
 
         if (numPacketErrors > numCorrectableErrors) {
             // Drop the frame
@@ -61,24 +61,45 @@ class CorrectedLossyTransform { // eslint-disable-line no-unused-vars
 }
 
 class CorrectedMLLossyTransform { // eslint-disable-line no-unused-vars
+    constructor() {
+        this.errorModel = new ErrorModel();
+        this.numFrameDrops = 0;
+        this.k = 10;
+        this.n = 14;
+    }
+    
     /** @override */
     async init() {}
     /** @override */
     async transform(frame, controller) {
-        // Get the (n, k) pair from the ML model
+        // Get the next state from the ML model
+        // fetch(`http://127.0.0.1:5000/predict?states=${this.errorModel.state}`)
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         let expectedNumErrors = this.errorModel.getNumErrorsByState(this.k, +data.state);
+        //         if (expectedNumErrors > 0) {
+        //             expectedNumErrors += 1;
+        //         }
+        //         this.n = (expectedNumErrors * 2) + this.k;
+        //     });
+        const res = await fetch(`http://127.0.0.1:5000/predict?states=${this.errorModel.state}`);
+        const { state } = await res.json();
+        let expectedNumErrors = this.errorModel.getNumErrorsByState(this.k, +state);
+        this.n = (expectedNumErrors * 2) + this.k;
 
         // Compute the maximum number of packets that can be corrected
-        // numCorrectableErrors = (n - k) / 2
+        const numCorrectableErrors = (this.n - this.k) / 2;
 
         // Compute the number of packet errors for this frame
-        // If numPacketErrors > numCorrectableErrors
-        // then frame.close()
-        // else all the packets for that frame were able to be corrected so controller.enqueue(frame)
+        const numPacketErrors = this.errorModel.getNumErrors(this.k);
 
-        if (Math.random() < 0.9) {
-            controller.enqueue(frame);
-        } else {
+        if (numPacketErrors > numCorrectableErrors) {
+            // Drop the frame
             frame.close();
+            this.numFrameDrops++;
+            console.log("CorrectedML frame drop", this.numFrameDrops);
+        } else {
+            controller.enqueue(frame);
         }
     }
     /** @override */
