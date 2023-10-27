@@ -48,6 +48,8 @@
                 <p>Number of frame displayed, after correction: <span id="frameDisplayedStandard">0</span></p>
                 <p>Number of frame errors, before correction: <span id="errorCountBCStandard">0</span></p>
                 <p>Number of frame drops, after correction: <span id="errorCountACStandard">0</span></p>
+                <p>Number of data packets: <span id="dataPacketCountStandard">0</span></p>
+                <p>Number of overhead packets: <span id="overheadPacketCountStandard">0</span></p>
             </div>
         </div>
         <div id="sinkVideoContainerCorrected">
@@ -57,6 +59,8 @@
                 <p>Number of frame displayed, after correction: <span id="frameDisplayedCorrected">0</span></p>
                 <p>Number of frame errors, before correction: <span id="errorCountBCCorrected">0</span></p>
                 <p>Number of frame drops, after correction: <span id="errorCountACCorrected">0</span></p>
+                <p>Number of data packets: <span id="dataPacketCountCorrected">0</span></p>
+                <p>Number of overhead packets: <span id="overheadPacketCountCorrected">0</span></p>
             </div>
         </div>
         <div id="sinkVideoContainerCorrectedML">
@@ -66,36 +70,33 @@
                 <p>Number of frame displayed, after correction: <span id="frameDisplayedCorrectedML">0</span></p>
                 <p>Number of frame errors, before correction: <span id="errorCountBCCorrectedML">0</span></p>
                 <p>Number of frame drops, after correction: <span id="errorCountACCorrectedML">0</span></p>
+                <p>Number of data packets: <span id="dataPacketCountCorrectedML">0</span></p>
+                <p>Number of overhead packets: <span id="overheadPacketCountCorrectedML">0</span></p>
             </div>
         </div>
     </div>
 
-    <div class="box">
-        <select id="sourceSelector" hidden>
-            <option value="">(stopped)</option>
-            <option selected value="camera">Camera</option>
-            <option value="video">Video</option>
-            <option value="canvas">Canvas</option>
-            <option value="pc">Peer connection (from camera)</option>
-        </select>
-        <input type="checkbox" id="sourceVisible" checked hidden>
-    </div>
-    <div class="box">
-        <select id="transformSelector" hidden>
-            <option value="webgl">WebGL</option>
-            <option value="canvas2d">Canvas2D</option>
-            <option value="noop">Do nothing</option>
-            <option selected value="drop">Drop frames at random</option>
-            <option value="delay">Delay all frames by 100ms</option>
-            <option value="webcodec">Run frames through WebCodec</option>
-        </select>
-    </div>
-    <div class="box">
-        <select id="sinkSelector" hidden>
-            <option value="video">Video</option>
-            <option selected value="pc">Peer connection</option>
-        </select>
-    </div>
+    <div id="nList" style="display: none"></div>
+    <select id="sourceSelector" hidden>
+        <option value="">(stopped)</option>
+        <option selected value="camera">Camera</option>
+        <option value="video">Video</option>
+        <option value="canvas">Canvas</option>
+        <option value="pc">Peer connection (from camera)</option>
+    </select>
+    <input type="checkbox" id="sourceVisible" checked hidden>
+    <select id="transformSelector" hidden>
+        <option value="webgl">WebGL</option>
+        <option value="canvas2d">Canvas2D</option>
+        <option value="noop">Do nothing</option>
+        <option selected value="drop">Drop frames at random</option>
+        <option value="delay">Delay all frames by 100ms</option>
+        <option value="webcodec">Run frames through WebCodec</option>
+    </select>
+    <select id="sinkSelector" hidden>
+        <option value="video">Video</option>
+        <option selected value="pc">Peer connection</option>
+    </select>
 
 </div>
 

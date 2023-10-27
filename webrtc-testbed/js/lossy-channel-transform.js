@@ -10,6 +10,8 @@ class StandardLossyTransform { // eslint-disable-line no-unused-vars
     async transform(frame, controller) {
         const numPacketsPerFrame = 18; // https://chromium.googlesource.com/external/webrtc/+/master/modules/pacing/g3doc/index.md
         const numCorrectableErrors = 0;
+        
+        updateCountByAmount("overheadPacketCountStandard", 0);
 
         // Compute the number of packet errors for this frame
         const numPacketErrors = this.errorModel.getNumErrors(numPacketsPerFrame);
@@ -25,6 +27,7 @@ class StandardLossyTransform { // eslint-disable-line no-unused-vars
         } else {
             controller.enqueue(frame);
             updateCount("frameDisplayedStandard");
+            updateCountByAmount("dataPacketCountStandard", numPacketsPerFrame);
         }
         
         updateCount("frameCountStandard");
@@ -47,6 +50,8 @@ class CorrectedLossyTransform { // eslint-disable-line no-unused-vars
         const n = 22;
         const k = 18;
 
+        updateCountByAmount("overheadPacketCountCorrected", n - k);
+        
         // Compute the maximum number of packets that can be corrected
         const numCorrectableErrors = (n - k) / 2;
 
@@ -64,6 +69,7 @@ class CorrectedLossyTransform { // eslint-disable-line no-unused-vars
         } else {
             controller.enqueue(frame);
             updateCount("frameDisplayedCorrected");
+            updateCountByAmount("dataPacketCountCorrected", k);
         }
         
         updateCount("frameCountCorrected");
@@ -99,6 +105,9 @@ class CorrectedMLLossyTransform { // eslint-disable-line no-unused-vars
         let expectedNumErrors = this.errorModel.getNumErrorsByState(this.k, +state);
         this.n = (expectedNumErrors * 2) + this.k;
 
+        recordNewN(this.n);
+        updateCountByAmount("overheadPacketCountCorrectedML", this.n - this.k);
+        
         // Compute the maximum number of packets that can be corrected
         const numCorrectableErrors = (this.n - this.k) / 2;
 
@@ -116,6 +125,7 @@ class CorrectedMLLossyTransform { // eslint-disable-line no-unused-vars
         } else {
             controller.enqueue(frame);
             updateCount("frameDisplayedCorrectedML");
+            updateCountByAmount("dataPacketCountCorrectedML", this.k);
         }
 
         updateCount("frameCountCorrectedML");
@@ -127,4 +137,14 @@ class CorrectedMLLossyTransform { // eslint-disable-line no-unused-vars
 async function updateCount(name) {
     const count = document.getElementById(name);
     count.innerHTML = `${+count.innerHTML + 1}`;
+}
+
+async function updateCountByAmount(name, amount) {
+    const count = document.getElementById(name);
+    count.innerHTML = `${+count.innerHTML + amount}`;
+}
+
+async function recordNewN(n) {
+    const list = document.getElementById("nList");
+    list.innerHTML += `${n}:`;
 }
