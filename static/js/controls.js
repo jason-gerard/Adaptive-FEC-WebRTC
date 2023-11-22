@@ -11,6 +11,11 @@ function resetSim() {
         }
     }
 
+    for (let name of names) {
+        const el = document.getElementById(`delay${name}`);
+        el.innerHTML = "";
+    }
+
     document.getElementById("nList").innerHTML = "";
 
     startTime = Date.now();
@@ -39,6 +44,12 @@ function saveResults() {
 
     csv += "\n";
     csv += `nList,${nList}`;
+
+    for (let name of names) {
+        const delays = document.getElementById(`delay${name}`).innerHTML;
+        csv += "\n";
+        csv += `${name},${delays}`;
+    }
 
     const element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));

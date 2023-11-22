@@ -8,6 +8,8 @@ class StandardLossyTransform { // eslint-disable-line no-unused-vars
     async init() {}
     /** @override */
     async transform(frame, controller) {
+        const start = +new Date();
+
         updateCount("frameCountStandard");
         
         const numPacketsPerFrame = 18; // https://chromium.googlesource.com/external/webrtc/+/master/modules/pacing/g3doc/index.md
@@ -31,6 +33,9 @@ class StandardLossyTransform { // eslint-disable-line no-unused-vars
             updateCount("frameDisplayedStandard");
             updateCountByAmount("dataPacketCountStandard", numPacketsPerFrame);
         }
+
+        const delta = +new Date() - start;
+        recordDelay("Standard", delta);
     }
     /** @override */
     destroy() {}
@@ -46,6 +51,8 @@ class CorrectedLossyTransform { // eslint-disable-line no-unused-vars
     async init() {}
     /** @override */
     async transform(frame, controller) {
+        const start = +new Date();
+
         updateCount("frameCountCorrected");
         
         // Use the default (n, k) pair
@@ -73,6 +80,9 @@ class CorrectedLossyTransform { // eslint-disable-line no-unused-vars
             updateCount("frameDisplayedCorrected");
             updateCountByAmount("dataPacketCountCorrected", k);
         }
+
+        const delta = +new Date() - start;
+        recordDelay("Corrected", delta);
     }
     /** @override */
     destroy() {}
@@ -90,11 +100,13 @@ class CorrectedMLLossyTransform { // eslint-disable-line no-unused-vars
     async init() {}
     /** @override */
     async transform(frame, controller) {
+        const start = +new Date();
+        
         updateCount("frameCountCorrectedML");
         
         // Get the next state from the ML model
-        // const host = "http://127.0.0.1:5000"
-        const host = "https://comp-691-project.onrender.com"
+        const host = "http://127.0.0.1:5000"
+        // const host = "https://comp-691-project.onrender.com"
         const res = await fetch(`${host}/predict?states=${this.errorModel.state}`);
         const { state } = await res.json();
         let expectedNumErrors = this.errorModel.getNumErrorsByState(this.k, +state);
@@ -122,6 +134,9 @@ class CorrectedMLLossyTransform { // eslint-disable-line no-unused-vars
             updateCount("frameDisplayedCorrectedML");
             updateCountByAmount("dataPacketCountCorrectedML", this.k);
         }
+        
+        const delta = +new Date() - start;
+        recordDelay("CorrectedML", delta);
     }
     /** @override */
     destroy() {}
@@ -139,5 +154,10 @@ async function updateCountByAmount(name, amount) {
 
 async function recordNewN(n) {
     const list = document.getElementById("nList");
+    list.innerHTML += `${n}:`;
+}
+
+async function recordDelay(name, n) {
+    const list = document.getElementById(`delay${name}`);
     list.innerHTML += `${n}:`;
 }
