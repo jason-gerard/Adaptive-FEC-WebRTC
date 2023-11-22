@@ -91,16 +91,9 @@ class CorrectedMLLossyTransform { // eslint-disable-line no-unused-vars
     /** @override */
     async transform(frame, controller) {
         // Get the next state from the ML model
-        // fetch(`http://127.0.0.1:5000/predict?states=${this.errorModel.state}`)
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         let expectedNumErrors = this.errorModel.getNumErrorsByState(this.k, +data.state);
-        //         if (expectedNumErrors > 0) {
-        //             expectedNumErrors += 1;
-        //         }
-        //         this.n = (expectedNumErrors * 2) + this.k;
-        //     });
-        const res = await fetch(`http://127.0.0.1:5000/predict?states=${this.errorModel.state}`);
+        // http://127.0.0.1:5000 
+        const host = "https://comp-691-project.onrender.com"
+        const res = await fetch(`${host}/predict?states=${this.errorModel.state}`);
         const { state } = await res.json();
         let expectedNumErrors = this.errorModel.getNumErrorsByState(this.k, +state);
         this.n = (expectedNumErrors * 2) + this.k;
