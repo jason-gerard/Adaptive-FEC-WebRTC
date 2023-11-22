@@ -1,4 +1,4 @@
-const { ErrorModel } = require("../webrtc-testbed/js/error-model");
+const { ErrorModel } = require("../static/js/error-model");
 const fs = require('fs');
 
 const k = 18; // numPacketsPerFrame

@@ -1,19 +1,9 @@
 <!DOCTYPE html>
-<!--
- *  Copyright (c) 2020 The WebRTC project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree.
--->
-<html>
+<html lang="en">
 <head>
 
     <meta charset="utf-8">
-    <meta name="description" content="WebRTC code samples">
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
-    <meta itemprop="description" content="Client-side WebRTC code samples">
-    <meta itemprop="name" content="WebRTC code samples">
     <meta name="mobile-web-app-capable" content="yes">
     <meta id="theme-color" name="theme-color" content="#ffffff">
 
@@ -22,7 +12,7 @@
     <title>WebRTC FEC Testbed</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
 
 </head>
 
@@ -43,7 +33,7 @@
         </div>
         <div id="sinkVideoContainerStandard">
             <div id="sinkVideoMetadataContainerStandard">
-                <p>Stream: Standard (No correction)</p>
+                <p>Stream: Sink Standard (No correction)</p>
                 <p>Number of frame sent: <span id="frameCountStandard">0</span></p>
                 <p>Number of frame displayed, after correction: <span id="frameDisplayedStandard">0</span></p>
                 <p>Number of frame errors, before correction: <span id="errorCountBCStandard">0</span></p>
@@ -54,7 +44,7 @@
         </div>
         <div id="sinkVideoContainerCorrected">
             <div id="sinkVideoMetadataContainerCorrected">
-                <p>Stream: Corrected (Reed-Solomon(22, 18))</p>
+                <p>Stream: Sink Corrected (Reed-Solomon(22, 18))</p>
                 <p>Number of frame sent: <span id="frameCountCorrected">0</span></p>
                 <p>Number of frame displayed, after correction: <span id="frameDisplayedCorrected">0</span></p>
                 <p>Number of frame errors, before correction: <span id="errorCountBCCorrected">0</span></p>
@@ -65,7 +55,7 @@
         </div>
         <div id="sinkVideoContainerCorrectedML">
             <div id="sinkVideoMetadataContainerCorrectedML">
-                <p>Stream: CorrectedML (Reed-Solomon(Dynamic, 18))</p>
+                <p>Stream: Sink CorrectedML (Reed-Solomon(Dynamic, 18))</p>
                 <p>Number of frame sent: <span id="frameCountCorrectedML">0</span></p>
                 <p>Number of frame displayed, after correction: <span id="frameDisplayedCorrectedML">0</span></p>
                 <p>Number of frame errors, before correction: <span id="errorCountBCCorrectedML">0</span></p>
@@ -101,22 +91,22 @@
 </div>
 
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="js/controls.js" async></script>
-<script src="js/error-model.js" async></script>
-<script src="js/camera-source.js" async></script>
-<script src="js/canvas-source.js" async></script>
-<script src="js/canvas-transform.js" async></script>
-<script src="js/peer-connection-pipe.js" async></script>
-<script src="js/peer-connection-sink.js" async></script>
-<script src="js/peer-connection-source.js" async></script>
-<script src="js/pipeline.js" async></script>
-<script src="js/simple-transforms.js" async></script>
-<script src="js/video-mirror-helper.js" async></script>
-<script src="js/video-sink.js" async></script>
-<script src="js/video-source.js" async></script>
-<script src="js/webcodec-transform.js" async></script>
-<script src="js/webgl-transform.js" async></script>
-<script src="js/lossy-channel-transform.js" async></script>
-<script src="js/main.js" async></script>
+<script src="{{ url_for('static', filename='js/controls.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/error-model.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/camera-source.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/canvas-source.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/canvas-transform.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/peer-connection-pipe.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/peer-connection-sink.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/peer-connection-source.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/pipeline.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/simple-transforms.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/video-mirror-helper.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/video-sink.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/video-source.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/webcodec-transform.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/webgl-transform.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/lossy-channel-transform.js') }}" async></script>
+<script src="{{ url_for('static', filename='js/main.js') }}" async></script>
 </body>
 </html>
