@@ -8,6 +8,8 @@ class StandardLossyTransform { // eslint-disable-line no-unused-vars
     async init() {}
     /** @override */
     async transform(frame, controller) {
+        updateCount("frameCountStandard");
+        
         const numPacketsPerFrame = 18; // https://chromium.googlesource.com/external/webrtc/+/master/modules/pacing/g3doc/index.md
         const numCorrectableErrors = 0;
         
@@ -29,8 +31,6 @@ class StandardLossyTransform { // eslint-disable-line no-unused-vars
             updateCount("frameDisplayedStandard");
             updateCountByAmount("dataPacketCountStandard", numPacketsPerFrame);
         }
-        
-        updateCount("frameCountStandard");
     }
     /** @override */
     destroy() {}
@@ -46,6 +46,8 @@ class CorrectedLossyTransform { // eslint-disable-line no-unused-vars
     async init() {}
     /** @override */
     async transform(frame, controller) {
+        updateCount("frameCountCorrected");
+        
         // Use the default (n, k) pair
         const n = 22;
         const k = 18;
@@ -71,8 +73,6 @@ class CorrectedLossyTransform { // eslint-disable-line no-unused-vars
             updateCount("frameDisplayedCorrected");
             updateCountByAmount("dataPacketCountCorrected", k);
         }
-        
-        updateCount("frameCountCorrected");
     }
     /** @override */
     destroy() {}
@@ -90,8 +90,10 @@ class CorrectedMLLossyTransform { // eslint-disable-line no-unused-vars
     async init() {}
     /** @override */
     async transform(frame, controller) {
+        updateCount("frameCountCorrectedML");
+        
         // Get the next state from the ML model
-        // http://127.0.0.1:5000 
+        // const host = "http://127.0.0.1:5000"
         const host = "https://comp-691-project.onrender.com"
         const res = await fetch(`${host}/predict?states=${this.errorModel.state}`);
         const { state } = await res.json();
@@ -120,8 +122,6 @@ class CorrectedMLLossyTransform { // eslint-disable-line no-unused-vars
             updateCount("frameDisplayedCorrectedML");
             updateCountByAmount("dataPacketCountCorrectedML", this.k);
         }
-
-        updateCount("frameCountCorrectedML");
     }
     /** @override */
     destroy() {}

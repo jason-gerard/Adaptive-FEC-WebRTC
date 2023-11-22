@@ -42,7 +42,7 @@ function saveResults() {
 
     const element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
-    element.setAttribute('download', "results.csv");
+    element.setAttribute('download', `results_${+new Date()}.csv`);
 
     element.style.display = 'none';
     document.body.appendChild(element);
@@ -50,4 +50,15 @@ function saveResults() {
     element.click();
 
     document.body.removeChild(element);
+}
+
+function timedRun() {
+    const duration = 30 * 1000;
+
+    resetSim();
+    
+    setTimeout(() => {
+        saveResults();
+        resetSim();
+    }, duration);
 }
