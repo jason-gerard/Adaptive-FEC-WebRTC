@@ -2,7 +2,7 @@
 
 ### Training the models
 
-All the models are found in the `ml-model` directory, each model has its own file. There are general purpose scripts like `model_utils.py` and `generate_dataset.js`. The implementation of the markov chain for the error model is in the `webrtc-testbed/js/error-model.js` file.
+All the models are found in the `models` directory, each model has its own file. There are general purpose scripts like `model_utils.py` and `generate_dataset.js`. The implementation of the markov chain for the error model is in the `webrtc-testbed/js/error-model.js` file.
 
 ### Generating the dataset
 

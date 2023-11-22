@@ -64,5 +64,5 @@ def print_results(grid, y_test, x_test):
 def save_model(grid):
     model_name = grid.get_params()["estimator"].__class__.__name__
 
-    with open(f"./models/{model_name}.pkl", "wb") as f:
+    with open(f"./model_binaries/{model_name}.pkl", "wb") as f:
         pickle.dump(grid.best_estimator_, f)
