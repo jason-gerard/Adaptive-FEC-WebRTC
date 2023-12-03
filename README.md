@@ -21,9 +21,24 @@ The project will be accessible through `http://127.0.0.1:5000` on your local mac
 
 A deployed version of the app is available `https://comp-691-project.onrender.com`. Note that since it is running on a free tier of a cloud service there is some latency which isn't present with other deployment methods.
 
+### Important Files
+
+For the solution the files below contain the implementation details, other files in the project are either for testing or are used for the WebRTC pipeline and their implementations don't affect the project (They are taken from WebRTC and credited in each file).
+- `app.py`
+- `static/js/error-model.js`
+- `static/js/lossy-channel-transform.js`
+- `static/js/controls.js`
+- `models/generate_dataset.js`
+
+The code used for data analysis that generated all the graphs in the report and presentation can be found in the `graph_sim_results.ipynb` notebook file. You will also need to install pandas, numpy, and matplotlib to run that notebook.
+
+The code for training and testing the models can be found in the `models` directory, see "Training the models" section of the README for more information.
+
 ### Training the models
 
 All the models are found in the `models` directory, each model has its own file. There are general purpose scripts like `models/model_utils.py` and `models/generate_dataset.js`. The implementation of the markov chain for the error model is in the `static/js/error-model.js` file.
+
+**Note: to train the ML models you must also have sklearn and pandas installed**
 
 ### Generating the dataset
 

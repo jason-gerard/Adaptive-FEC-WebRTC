@@ -7,6 +7,7 @@ import pickle
 RANDOM_STATE = 42
 
 
+# This function is re-used across all the models to load the dataset in for training and testing
 def load_dataset():
     x = []
     y = []
@@ -20,6 +21,7 @@ def load_dataset():
     # print(x)
     # print(y)
 
+    # Use the sklearn train test split function to split the training and test data 67% and 33% respectively
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=RANDOM_STATE)
     return x_train, x_test, y_train, y_test
 
