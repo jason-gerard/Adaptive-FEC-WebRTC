@@ -105,8 +105,7 @@ class CorrectedMLLossyTransform { // eslint-disable-line no-unused-vars
         updateCount("frameCountCorrectedML");
         
         // Get the next state from the ML model
-        // const host = "http://127.0.0.1:5000"
-        const host = "https://comp-691-project.onrender.com"
+        const host = window.location.href.includes(":5000") ? "http://127.0.0.1:5000" : "https://comp-691-project.onrender.com";
         const res = await fetch(`${host}/predict?states=${this.errorModel.state}`);
         const { state } = await res.json();
         let expectedNumErrors = this.errorModel.getNumErrorsByState(this.k, +state);

@@ -1,8 +1,29 @@
 # COMP-691-Project
 
+### Running the Project
+The project ships with the ML model pre-saved for inference, so no training needs to be done.
+
+1. Install project dependencies
+```
+$ python3 -m venv venv
+```
+```
+$ source venv/bin/activate
+```
+```
+$ python3 -m pip install -r requirements.txt
+```
+1. Once the requirements are installed you can run the project
+```
+$ flask run
+```
+The project will be accessible through `http://127.0.0.1:5000` on your local machine
+
+A deployed version of the app is available `https://comp-691-project.onrender.com`. Note that since it is running on a free tier of a cloud service there is some latency which isn't present with other deployment methods.
+
 ### Training the models
 
-All the models are found in the `models` directory, each model has its own file. There are general purpose scripts like `model_utils.py` and `generate_dataset.js`. The implementation of the markov chain for the error model is in the `webrtc-testbed/js/error-model.js` file.
+All the models are found in the `models` directory, each model has its own file. There are general purpose scripts like `models/model_utils.py` and `models/generate_dataset.js`. The implementation of the markov chain for the error model is in the `static/js/error-model.js` file.
 
 ### Generating the dataset
 
@@ -10,30 +31,16 @@ You can generate a new dataset to train the models with if you've changed the tr
 
 ### Inference API
 
-When a model is finished training the best hyperparameter selection from grid search will be saved as a pickle. That pickle can be loaded by the inference server to make the live predictions. The path for the model in `ml-server/app.py` can be changed to load different models.
+When a model is finished training the best hyperparameter selection from grid search will be saved as a pickle. That pickle can be loaded by the inference server to make the live predictions. The path for the model in `app.py` can be changed to load different models.
 
-An example call to the infrence API looks like
+An example call to the inference API looks like
 ```
 http://127.0.0.1:5000/predict?states=2
 ```
-where the values of states can be a comma delimited string or a single value depending how many states the infrence model was trained with.
-
-### Run the project
-
-1. Make sure all JS and Python dependencies are installed
-
-2. Start the infrence ML server
-```
-cd ml-server
-flask run
-```
-
-3. Open the WebRTC client through the `index.html` file in the testbed folder
-```
-file:///Users/jason/Code/COMP-691-Project/webrtc-testbed/index.html
-```
+where the values of states can be a comma delimited string or a single value depending on how many states the inference model was trained with.
 
 ### Links
+
 - https://developer.mozilla.org/en-US/docs/Web/API/Insertable_Streams_for_MediaStreamTrack_API
 - https://webrtc.github.io/samples/src/content/insertable-streams/video-processing/
 - https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-streams/video-processing/js/simple-transforms.js
