@@ -1,4 +1,4 @@
-# COMP-691-Project
+# Adaptive-FEC-WebRTC
 
 ### Running the Project
 The project ships with the ML model pre-saved for inference, so no training needs to be done.
@@ -18,8 +18,6 @@ $ python3 -m pip install -r requirements.txt
 $ flask run
 ```
 The project will be accessible through `http://127.0.0.1:5000` on your local machine
-
-A deployed version of the app is available `https://comp-691-project.onrender.com`. Note that since it is running on a free tier of a cloud service there is some latency which isn't present with other deployment methods.
 
 ### Important Files
 
